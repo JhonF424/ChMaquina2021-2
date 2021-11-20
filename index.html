@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <title>CHMAQUINA</title>
+</head>
+
+<body>
+    <header class="text-center">
+        <h1 class="my-3">
+            ChMáquina
+        </h1>
+        <img src="./assets/img/iconos-linux.png" alt="">
+    </header>
+    <div class="row mx-5">
+        <div class="col mt-3">
+            <button class="btn btn-primary my-2 my-sm-0">Cargar .CH<br><input class="" type="file" id="file-input"
+                    value="Abrir Archivo"></button>
+        </div>
+        <div class="col mt-3">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit" id="start">Iniciar</button>
+            <button class="btn btn-primary my-2 my-sm-0" type="submit" id="stepByStep">Ejecución paso a paso</button>
+            <a href="./assets/views/ide.html" class="btn btn-primary">Crear programa .ch</a>
+        </div>
+    </div>
+    <div class="row mx-5">
+        <div class="col my-3">
+
+            <label for="memoria">Memoria:</label>
+            <input type="number" name="memoria" id="memoryInput" max="7100" min="120">
+            <label for="kernel">Kernel:</label>
+            <input type="number" name="kernel" id="kernelInput" max="7100" min="79">
+            <a class=""><button class="btn btn-primary my-2 my-sm-0" id="setValues">Establecer valores</button></a>
+            <a class=""><button class="btn btn-primary my-2 my-sm-0" id="btnMapa"
+                    onclick="MapaMemoria.id = 'MapaMemoriaMostrar'; return false;">Mostrar Mapa de
+                    memoria</button></a>
+            <a class=""><button class="btn btn-primary my-2 my-sm-0" id="btnMapa"
+                    onclick="MapaMemoriaMostrar.id = 'MapaMemoria'; return false;">Quitar Mapa de
+                    memoria</button></a>
+
+            <div class="col-sm w-25 text-center border border-primary mt-5">
+                <p>Acumulador: </p>
+                <p id="acumulador"></p>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h5>Pantalla</h5>
+                    <textarea name="pantalla" id="pantalla" rows="1000"
+                        style="width:350px;height:250px; resize: none;"></textarea>
+                </div>
+                <div class="col">
+                    <h5>Impresora</h5>
+                    <textarea disabled name="impresora" id="impresora" rows="1000"
+                        style="width:350px;height:250px; resize: none;"></textarea>
+                </div>
+            </div>
+
+            <br>
+
+        </div>
+
+    </div>
+
+    <div class="row mx-5">
+        <div class="col-sm-4">
+            <h5>Compilador</h5>
+            <textarea disabled name="compilador" id="compilador"
+                style="width:300px;height:400px; resize: none;"></textarea>
+        </div>
+
+
+        <div class="col-sm-4">
+            <h5>Mapa de variables</h5>
+            <textarea disabled name="variables" id="variables" rows="1000"
+                style="width:350px;height:250px; resize: none;"></textarea>
+            <h6>Etiquetas</h6>
+            <br><textarea disabled name="Etiquetas" id="Etiquetas"
+                style="width:250px;height:150px; resize: none;"></textarea>
+            <br>
+        </div>
+
+        <div class="col-sm-4" id="MapaMemoria">
+            <h5>Mapa de memoria: </h5>
+            <textarea disabled name="Mapa" id="MapaM" style="width:400px;height:500px; resize: none;"></textarea>
+        </div>
+    </div>
+
+    <div class="row mx-auto">
+
+    </div>
+
+    <script src="./assets/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/compilador.js"></script>
+</body>
+
+</html>
