@@ -4,6 +4,8 @@
  * ------------------------------------------------------------------------
  */
 
+var todosLosProgramas = new Array();
+
 var reader;
 var lineaRetorne;
 //Se obtienen los valores de la memoria y el kernel
@@ -53,6 +55,12 @@ startBtn.addEventListener('click', start);
 const stepBtn = document.getElementById('stepByStep');
 stepBtn.addEventListener('click', stepByStep);
 
+const btnSJFNoExp = document.getElementById('SJFNoExp');
+btnSJFNoExp.addEventListener('click', SJFNoExp);
+
+const btnFCFS = document.getElementById('FCFS');
+btnFCFS.addEventListener('click', start);
+
 function abrirArchivo(evt) {
 
     let file = evt.target.files[0];
@@ -63,26 +71,25 @@ function abrirArchivo(evt) {
         if (!verificarErrores(content)) {
             let instruccion = content.split('\n');
             if (memoria.length + instruccion.length < memoryValue) {
+                let programa = new Array();
                 for (let i = 0; i < instruccion.length; i++) {
                     if (!instruccion[i].includes("//") || !instruccion[i].includes("/")) {
                         memoria.push(instruccion[i].trim());
+                        programa.push(instruccion[i].trim());
                     }
-
                     if (instruccion[i].includes("retorne")) {
                         lineaRetorne = i;
                     }
                 }
-
+                todosLosProgramas.push(programa);
             } else {
                 //Valida que la memoria no se desborde 
                 alert("La memoria está llena, no se pueden agregar más instrucciones");
             }
-
             document.getElementById('compilador').value += instruccion.join('') + '\n';
             document.getElementById('compilador').scrollTop = document.getElementById('compilador').scrollHeight
         }
     }
-
     reader.readAsText(file);
 }
 
@@ -111,20 +118,15 @@ function verificarErrores(contenido) {
                 alert("Error en la linea numero: " + i);
                 error = true;
             }
-
         }
-
     }
-
     return error;
 }
 
-let vayaI;
 function start() {
     for (let i = 0; i <= memoria.length - 1; i++) {
         document.getElementById('MapaM').value += memoria[i] + "\n";
         document.getElementById("MapaM").scrollTop = document.getElementById("MapaM").scrollHeight
-        vayaI = 0;
         let ins = memoria[i].split(" ");
         switch (ins[0]) {
             case "nueva":
@@ -273,20 +275,104 @@ function stepByStep() {
 }
 
 
+
+
+function SJFNoExp() {
+    alert("Método: SJF No Expropiativo")
+    todosLosProgramas.sort();
+    console.log(todosLosProgramas);
+    todosLosProgramas.forEach(item => {
+        for (let i = 0; i < item.length; i++) {
+
+            let ins = item[i].split(" ");
+            switch (ins[0]) {
+                case "nueva":
+                    nueva(ins);
+                    break;
+                case "almacene":
+                    almacene(ins);
+                    break;
+                case "cargue":
+                    cargue(ins);
+                    break;
+                case "lea":
+                    lea(ins);
+                    break;
+                case "sume":
+                    sume(ins);
+                    break;
+                case "reste":
+                    reste(ins);
+                    break;
+                case "multiplique":
+                    multiplique(ins);
+                    break;
+                case "divida":
+                    divida(ins);
+                    break;
+                case "concatene":
+                    concatene(ins);
+                    break;
+                case "elimine":
+                    elimine(ins);
+                    break;
+                case "extraiga":
+                    extraiga(ins);
+                    break;
+                case "y" || "Y":
+                    y(ins);
+                    break;
+                case "o" || "O":
+                    o(ins);
+                    break;
+                case "muestre":
+                    muestre(ins);
+                    break;
+                case "imprima":
+                    imprima(ins);
+                    break;
+                case "vaya":
+                    i = vaya(ins);
+                    break;
+                case "vayasi":
+                    vayasi(ins);
+                    break;
+                case "xxx" || "XXX":
+                    xxx(ins);
+                    break;
+                case "etiqueta":
+                    etiqueta(ins);
+                    break;
+                case "retorne":
+                    retorne(ins);
+                    break;
+                default:
+                    break;
+            }
+        }
+    })
+
+}
+
+function FCFS() {
+    const startBtn = document.getElementById('start');
+    startBtn.addEventListener('click', start);
+}
+
+function RoundRobin() {
+    
+}
+
 function nueva(ins, sbs) {
     if (sbs == 1) {
         alert("Se crea una nueva variable");
     }
     let nuevaVariable = new Object();
-
     if (ins.length == 4) {
-
         nuevaVariable.nombre = ins[1];
         nuevaVariable.tipo = ins[2];
         nuevaVariable.valor = parseInt(ins[3]);
-
     } else if (ins.length == 3) {
-
         nuevaVariable.nombre = ins[1];
         nuevaVariable.tipo = ins[2];
 
