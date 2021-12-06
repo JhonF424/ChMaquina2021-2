@@ -359,10 +359,6 @@ function FCFS() {
     startBtn.addEventListener('click', start);
 }
 
-function RoundRobin() {
-    
-}
-
 function nueva(ins, sbs) {
     if (sbs == 1) {
         alert("Se crea una nueva variable");
